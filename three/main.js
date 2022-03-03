@@ -13,21 +13,24 @@ document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
 renderer.setPixelRatio(devicePixelRatio);
 camera.position.z = 5;
 
 const planeGeometry = new THREE.PlaneGeometry(5, 5, 10, 10);
-const planeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const planeMaterial = new THREE.MeshPhongMaterial({
+  color: 0xff0000,
+  side: THREE.DoubleSide,
+});
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
 scene.add(planeMesh);
+const light = new THREE.DirectionalLight(0xffffff, 1);
+scene.add(light);
+light.position.set(0, 0, 1);
 function animate() {
   requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-  planeMesh.rotation.x += 0.01;
-  planeMesh.rotation.y += 0.01;
+
+  // planeMesh.rotation.x += 0.01;
+  // planeMesh.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 animate();
